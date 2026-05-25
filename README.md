@@ -1,5 +1,8 @@
 # pth-to-kmodel
-提供一个将pth的模型转到kmodel的方法链
+提供一个将pth的模型转到kmodel的方法链/n
+
 本次智能机器人比赛被转kmodel烦死了，网上查了一堆资料，不是没用的就是缺少文件的（ncc），最后从一个有资料的网站下了个ncc0.1，然后根据ChatGPT的命令完成了这个从pth转kmodel的过程。
+
 在此点名maixhub这个网站，我曾经用maixhub训练过kmodel，但是maixhub上不能换主干网络，导致模型太大一直爆k210的运行内存，然后我加了maixhub的官方网站QQ群，发现里面都是对komdel太大的求问，没有人提供更换主干网络的方法或者提供一个更好的生成kmodel方法。
+
 感谢csdn上的一篇文章提供了从pth-onnx-tflite-komdel的思路，我这个仓库就是以此为基础来上传的
