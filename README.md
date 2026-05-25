@@ -6,6 +6,34 @@
 在此点名maixhub这个网站，我曾经用maixhub训练过kmodel，但是maixhub上不能换主干网络，导致模型太大一直爆k210的运行内存，然后我加了maixhub的官方网站QQ群，发现里面都是对komdel太大的求问，没有人提供更换主干网络的方法或者提供一个更好的生成kmodel方法。
 
 感谢csdn上的一篇文章提供了从pth-onnx-tflite-komdel的思路，我这个仓库就是以此为基础来上传的
+## 训练 / 导出 ONNX 关键库
+```
+python                  3.10.20
+torch                   2.0.1+cu118
+torchvision             0.15.2+cu118
+torchaudio              2.0.2+cu118
+numpy                   1.24.3
+pillow                  12.1.1
+opencv-python           4.8.1.78
+matplotlib              3.10.9
+```
+### onnx到kmodel
+```
+python                  3.10.20
+tensorflow              2.21.0
+tf-keras                2.21.0
+protobuf                6.31.1
+numpy                   2.2.6
+onnx                    1.21.0
+onnx2tf                 1.26.3
+onnxsim                 0.6.3
+onnxruntime             1.23.2
+onnx-graphsurgeon       0.6.1
+ai-edge-litert          2.1.5
+psutil                  7.2.2
+sng4onnx                2.0.1
+```
+
 # PyTorch `.pth` 转 K210 `.kmodel` 通用流程
 
 ## 1. 总体流程
