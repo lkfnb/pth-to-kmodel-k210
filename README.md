@@ -54,3 +54,36 @@ ZeroPad
 复杂后处理算子
 NMS 放进模型
 ```
+## 3. ONNX 转 TensorFlow / TFLite
+使用 onnx2tf。
+```
+onnx2tf -i yolo.onnx -o saved_model -nuo
+```
+-nuo 表示不让 onnx2tf 内部再次调用 onnxsim
+成功标志：
+```
+saved_model output complete!
+Float32 tflite output complete!
+Float16 tflite output complete!
+```
+## 4. 查找 TFLite 文件
+转换完成后执行：
+```
+dir /s /b *.tflite
+```
+通常会看到：
+```
+saved_model\xxx_float32.tflite
+saved_model\xxx_float16.tflite
+```
+优先使用：
+```
+float32.tflite
+```
+不要优先使用 float16。
+## 5. 准备 ncc 校准图片目录
+ncc --dataset 用于 int8 量化校准，只需要图片，不需要标签。
+不同类别图片数量尽量均衡。
+## 6. TFLite 转 kmodel
+使用 nncase 0.1 的 ncc.exe。
+"D:address\ncc.exe" yolo.tflite yolo.kmodel -i tflite -o k210model --dataset D:\address\climg
