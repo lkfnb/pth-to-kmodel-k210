@@ -1,4 +1,4 @@
-# pth-to-kmodel
+# pth-to-kmodel(k210)
 提供一个将pth的模型转到kmodel的方法链/n
 
 本次智能机器人比赛被转kmodel烦死了，网上查了一堆资料，不是没用的就是缺少文件的（ncc），最后从一个有资料的网站下了个ncc0.1，然后根据ChatGPT的命令完成了这个从pth转kmodel的过程。
