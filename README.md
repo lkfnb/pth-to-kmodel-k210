@@ -86,4 +86,63 @@ ncc --dataset 用于 int8 量化校准，只需要图片，不需要标签。
 不同类别图片数量尽量均衡。
 ## 6. TFLite 转 kmodel
 使用 nncase 0.1 的 ncc.exe。
+```
 "D:address\ncc.exe" yolo.tflite yolo.kmodel -i tflite -o k210model --dataset D:\address\climg
+```
+##7. ncc 成功标志
+YOLO 模型成功结构示例
+```
+0: InputLayer -> 1x3x224x224
+1: K210Conv2d 1x3x224x224 -> 1x16x112x112
+2: K210Conv2d 1x16x112x112 -> 1x24x56x56
+3: K210Conv2d 1x24x56x56 -> 1x48x28x28
+4: K210Conv2d 1x48x28x28 -> 1x80x14x14
+5: K210Conv2d 1x80x14x14 -> 1x128x7x7
+6: K210Conv2d 1x128x7x7 -> 1x128x7x7
+7: K210Conv2d 1x128x7x7 -> 1x128x7x7
+8: K210Conv2d 1x128x7x7 -> 1x64x7x7
+9: K210Conv2d 1x64x7x7 -> 1x40x7x7
+10: Dequantize 1x40x7x7 -> 1x40x7x7
+11: OutputLayer 1x40x7x7
+```
+## 8. K210 / MaixPy 使用注意
+YOLO模型使用：
+```
+kpu.init_yolo2(...)
+kpu.run_yolo2(...)
+```
+或者：
+kpu.run_with_output(img)
+objects = kpu.regionlayer_yolo2()
+
+关键参数：
+```
+labels = ["tri", "sp", "cir"]
+
+anchors = [ anchors / stride]# 必须是训练anchors
+
+kpu.init_yolo2(
+    anchors,
+    anchor_num=5,
+    img_w=224,
+    img_h=224,
+    net_w=224,
+    net_h=224,
+    layer_w=7,
+    layer_h=7,
+    threshold=0.5,
+    nms_value=0.3,
+    classes=3
+)
+```
+注意：
+layer_w / layer_h 必须等于模型输出网格
+例如输出：
+```
+[1, 40, 7, 7]
+```
+则：
+```
+layer_w = 7
+layer_h = 7
+```
