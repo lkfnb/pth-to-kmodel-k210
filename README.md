@@ -28,3 +28,29 @@ ncc
 kmodel
 ↓
 K210 / MaixPy
+```
+
+## 2. K210 模型设计要求
+
+K210 / nncase 0.1 对模型结构比较严格。
+
+推荐使用
+```
+Conv2d stride=1
+MaxPool2d 下采样
+BatchNorm2d
+ReLU
+普通 Conv
+固定输入尺寸
+```
+尽量避免
+```
+stride=2 Conv
+DepthwiseConv
+GroupConv
+ZeroPad
+非对称 Padding
+动态 shape
+复杂后处理算子
+NMS 放进模型
+```
